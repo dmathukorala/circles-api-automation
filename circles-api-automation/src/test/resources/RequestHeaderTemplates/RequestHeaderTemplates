@@ -1,0 +1,17 @@
+{
+    "Header1" : {
+		"Content-Type" : "application/json"
+    }
+
+    "Header2" : {
+		"Content-Type" : "application/json",
+		"X-Authorization" : ""
+    }
+
+    "Header3" : {
+		 "Content-Type" : "application/json",
+		 "X-Authorization" : "",
+		 "Correlation-id" : ""
+    }
+
+}

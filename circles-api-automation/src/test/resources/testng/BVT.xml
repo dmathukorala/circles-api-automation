@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="BVT" parallel="methods" thread-count="1">
+	<test name="BVT Test Suite" preserve-order="false">
+
+		<classes>
+			<class
+				name="com.circles.api.service.tests.CreatePostsAPITest" />
+			<class
+				name="com.circles.api.service.tests.FilterPostAPITest" />
+
+			<class
+				name="com.circles.api.service.tests.UpdatePostAPITest" />
+
+
+		</classes>
+	</test>
+</suite>

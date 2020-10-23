@@ -1,0 +1,227 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.circles.test</groupId>
+	<artifactId>circles-api-automation</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.gmaven</groupId>
+					<artifactId>gmaven-plugin</artifactId>
+					<version>1.4</version>
+					<configuration>
+						<providerSelection>2.0</providerSelection>
+						<source />
+					</configuration>
+					<executions>
+						<execution>
+							<goals>
+								<goal>compile</goal>
+								<goal>testCompile</goal>
+							</goals>
+						</execution>
+					</executions>
+
+				</plugin>
+
+				<plugin>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>3.0.0-M3</version>
+					<configuration>
+						<includes>
+							<include>**/*Test*</include>
+						</includes>
+						<suiteXmlFiles>
+							<suiteXmlFile>src/test/resources/testng/${suiteXmlFile}</suiteXmlFile>
+						</suiteXmlFiles>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<version>2.17</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>integration-test</goal>
+								<goal>verify</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<includes>
+							<include>**/*Suite*</include>
+						</includes>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>3.3</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.apache.maven.doxia</groupId>
+							<artifactId>doxia-module-markdown</artifactId>
+							<version>1.5</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.1</version>
+					<configuration>
+						<source>1.7</source>
+						<target>1.7</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>true</filtering>
+			</testResource>
+		</testResources>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.4</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.14</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.5</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.14</version>
+		</dependency>
+		<!-- Log4J Dependancy -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.6</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.testng/testng -->
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>6.14.3</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20180813</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongodb-driver</artifactId>
+			<version>3.4.2</version>
+		</dependency>
+
+	</dependencies>
+
+	<profiles>
+		<!-- These profile properties use maven filters to generate src/test/resources/config.properties -->
+
+		<profile>
+			<id>STG</id>
+			<properties>
+				<env.name>STG</env.name>
+				<service.host>https://int-piapi-internal.stg-openclass.com</service.host>
+				<service.type>Live</service.type>
+				<mongodb.ipAddress></mongodb.ipAddress>
+				<mongodb.port></mongodb.port>
+				<mongodb.name></mongodb.name>
+				<mongodb.username></mongodb.username>
+				<mongodb.password></mongodb.password>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>DEV</id>
+			<properties>
+				<env>DEV</env>
+				<service.host>https://jsonplaceholder.typicode.com</service.host>
+				<service.type>Live</service.type>
+				<template.body.path>./src/test/resources/RequestBodyTemplates</template.body.path>
+				<template.header.path>./src/test/resources/RequestHeaderTemplates/RequestHeaderTemplates</template.header.path>
+				<template.data.path>./src/test/resources/Data/DEV</template.data.path>
+				<template.errorMessage.path>./src/test/resources/ErrorMessageTemplates</template.errorMessage.path>
+			</properties>
+		</profile>
+
+		<profile>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<id>PROD</id>
+			<properties>
+				<env>PROD</env>
+				<service.host>https://jsonplaceholder.typicode.com</service.host>
+				<service.type>Live</service.type>
+				<template.body.path>./src/test/resources/RequestBodyTemplates</template.body.path>
+				<template.header.path>./src/test/resources/RequestHeaderTemplates/RequestHeaderTemplates</template.header.path>
+				<template.data.path>./src/test/resources/Data/DEV</template.data.path>
+				<template.errorMessage.path>./src/test/resources/ErrorMessageTemplates</template.errorMessage.path>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>QA</id>
+			<properties>
+				<env>QA</env>
+				<service.host>https://jsonplaceholder.typicode.com</service.host>
+				<service.type>Live</service.type>
+				<template.body.path>./src/test/resources/RequestBodyTemplates</template.body.path>
+				<template.header.path>./src/test/resources/RequestHeaderTemplates/RequestHeaderTemplates</template.header.path>
+				<template.data.path>./src/test/resources/Data/DEV</template.data.path>
+				<template.errorMessage.path>./src/test/resources/ErrorMessageTemplates</template.errorMessage.path>
+			</properties>
+		</profile>
+
+	</profiles>
+
+</project>
